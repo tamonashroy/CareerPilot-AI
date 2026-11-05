@@ -1,0 +1,21 @@
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { createBrowserRouter, RouterProvider } from "react-router";
+
+import { routes } from "@/app/routes";
+import { ThemeProvider } from "@/components/theme/theme-provider";
+
+const queryClient = new QueryClient({
+  defaultOptions: { queries: { retry: 1, refetchOnWindowFocus: false } },
+});
+
+const router = createBrowserRouter(routes);
+
+export function App() {
+  return (
+    <ThemeProvider>
+      <QueryClientProvider client={queryClient}>
+        <RouterProvider router={router} />
+      </QueryClientProvider>
+    </ThemeProvider>
+  );
+}
